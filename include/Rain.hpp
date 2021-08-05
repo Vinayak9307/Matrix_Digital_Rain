@@ -14,6 +14,7 @@ namespace Matrix{
         sf::Font            *font;
         sf::Text            *text;
         std::vector<String> _rain;
+        int SS_count        = 0;
 
         public:
 

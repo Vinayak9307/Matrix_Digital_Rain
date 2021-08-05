@@ -34,15 +34,29 @@ namespace Matrix{
             sf::Event event;
             while(window->pollEvent( event ))
             {
-                if((sf::Event::KeyPressed == event.type && event.key.code == sf::Keyboard::Escape ) || (sf::Event::Closed == event.type))
-                window->close( );
-                if( (sf::Event::KeyPressed == event.type && event.key.code == sf::Keyboard::Space ) )
+               switch (event.type)
                 {
-                    animate *= -1;
-                }
-                if( (sf::Event::KeyPressed == event.type && event.key.code == sf::Keyboard::P ) )
-                {
-                    take_picture = true;
+                case sf::Event::Closed:
+                    window->close( );
+                    break;
+                case sf::Event::KeyPressed:
+                    switch(event.key.code)
+                    {
+                        case sf::Keyboard::Escape :
+                            window->close( );
+                            break;
+                        case sf::Keyboard::Space :
+                            animate *= -1;
+                            break;
+                        case sf::Keyboard::P :
+                            take_picture = true;
+                            break;
+                        default:
+                            break;                        
+                    }
+                    break;                
+                default:
+                    break;
                 }
             }
             if(animate == 1)
@@ -60,7 +74,7 @@ namespace Matrix{
                 sf::Texture _tex;
                 _tex.create( window->getSize( ).x , window->getSize( ).y );
                 _tex.update( *window );
-                _tex.copyToImage( ).saveToFile("Background.png");
+                _tex.copyToImage( ).saveToFile("Background" + std::to_string(this->SS_count) + ".png");
                 take_picture = false;
             }
         }
